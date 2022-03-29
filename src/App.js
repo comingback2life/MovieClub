@@ -5,7 +5,6 @@ import { useState } from 'react';
 import { Alert } from 'react-bootstrap';
 function App() {
   const [movieList, setMovieList]=useState([]);
-  const [backupList, setBackupList]=useState([]);
   const  [warningAlert,setWarningAlert]=useState(false);
   const handleOnAddToList = (cat,movie)=>{
     const obj = {...movie,cat};
@@ -15,23 +14,15 @@ function App() {
       setWarningAlert(true);
     }else{
       setMovieList([...movieList,obj]);
-      setBackupList([...backupList,obj]);
     }
   }
   const handleOnDelete=(imdbID)=>{
     console.log(imdbID);
-    const newFun = backupList.filter(x=>x.imdbID!==imdbID);
+    const newFun = movieList.filter(x=>x.imdbID!==imdbID);
     setMovieList(newFun);
-    setBackupList(newFun);
   }
   const handleOnSelect = (cat)=>{
-    let filterArgs=[]
-    if(cat){
-      filterArgs=backupList.filter(itm=>itm.cat===cat)
-    }else{
-      filterArgs=backupList;
-    }
-    setMovieList(filterArgs);
+   
   }
   return (
     <div className='wrapper'>
