@@ -6,6 +6,7 @@ import { Alert } from 'react-bootstrap';
 function App() {
   const [movieList, setMovieList]=useState([]);
   const  [warningAlert,setWarningAlert]=useState(false);
+  const [category,setCategory]=useState("")
   const handleOnAddToList = (cat,movie)=>{
     const obj = {...movie,cat};
    !movieList.length && setMovieList([obj])
@@ -21,9 +22,7 @@ function App() {
     const newFun = movieList.filter(x=>x.imdbID!==imdbID);
     setMovieList(newFun);
   }
-  const handleOnSelect = (cat)=>{
-   
-  }
+
   return (
     <div className='wrapper'>
          {
@@ -33,7 +32,7 @@ function App() {
       }
       <Header func={handleOnAddToList} handleOnDelete={handleOnDelete}/>
 
-      <MovieList func={handleOnAddToList} moviesList={movieList} handleOnDelete={handleOnDelete} handleOnSelect={handleOnSelect}/>
+      <MovieList func={handleOnAddToList} moviesList={movieList} handleOnDelete={handleOnDelete} setCategory={setCategory}/>
     </div>
   );
 }
