@@ -7,6 +7,8 @@ function App() {
   const [movieList, setMovieList]=useState([]);
   const  [warningAlert,setWarningAlert]=useState(false);
   const [category,setCategory]=useState("")
+
+
   const handleOnAddToList = (cat,movie)=>{
     const obj = {...movie,cat};
    !movieList.length && setMovieList([obj])
@@ -22,17 +24,18 @@ function App() {
     const newFun = movieList.filter(x=>x.imdbID!==imdbID);
     setMovieList(newFun);
   }
+  const moviesToDisplay= category ? movieList.filter(item=>item.cat===category) :movieList;
 
   return (
     <div className='wrapper'>
          {
-        warningAlert? (<Alert variant="danger" onClose={() => setWarningAlert(false)} dismissible>
+        warningAlert ? (<Alert variant="danger" onClose={() => setWarningAlert(false)} dismissible>
        <p className='text-center'>Item already added to a list</p>
       </Alert>):''
       }
       <Header func={handleOnAddToList} handleOnDelete={handleOnDelete}/>
-
-      <MovieList func={handleOnAddToList} moviesList={movieList} handleOnDelete={handleOnDelete} setCategory={setCategory}/>
+      <p>Selected :{category===""?'All': (category==="DisLike"?'Disliked':category)}</p>
+      <MovieList func={handleOnAddToList} moviesList={moviesToDisplay} handleOnDelete={handleOnDelete} setCategory={setCategory}/>
     </div>
   );
 }

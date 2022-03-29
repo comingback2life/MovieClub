@@ -13,13 +13,13 @@ export const CustomCard = ({movie,func,btnDelete,handleOnDelete}) => {
       <Card.Title className='text-center'>{movie?.Title}</Card.Title>
       <Card.Text>
         {
-          movie?.imdbRating ? <p>IMDB Rating: <b>{movie.imdbRating}</b></p>:''
+          movie?.imdbRating ? <span>IMDB Rating: <b>{movie.imdbRating}</b></span>:''
         }
          {
-          movie?.Director ? <p>Directed By : <b>{movie.Director}</b></p>:'Sorry not director found'
+          movie?.Director ? <span className='d-block'>Directed By : <b>{movie.Director}</b></span >:'N/A'
         }
          {
-          movie?.Writer ? <p>Written By : <b>{movie.Writer}</b></p>:'Sorry not director found'
+          movie?.Writer ? <span className='d-block'>Written By : <b>{movie.Writer}</b></span>:'N/A'
         }
       </Card.Text>
       {btnDelete? ( <Button variant="btn w-100 btn-outline-danger" onClick={()=>handleOnDelete(movie.imdbID)}><box-icon name='trash'></box-icon></Button>) : (

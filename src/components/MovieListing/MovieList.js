@@ -8,7 +8,7 @@ export const MovieList = ({handleOnDelete,moviesList,setCategory}) => {
       <Col>
       <div className='filter d-flex justify-content-between py-3 px-3'> 
     <ButtonGroup aria-label="Basic example">
-    <Button variant="warning" onClick={()=>setCategory()}>All</Button>
+    <Button variant="warning" onClick={()=>setCategory("")}>All</Button>
     <Button variant="primary" onClick={()=>setCategory("Like")}>Liked</Button>
     <Button variant="danger" onClick={()=>setCategory("DisLike")}>Disliked</Button>
   </ButtonGroup>
