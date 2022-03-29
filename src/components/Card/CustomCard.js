@@ -1,21 +1,49 @@
 import React from 'react'
-import {Card,Button,Row,Col,Container} from 'react-bootstrap'
-export const CustomCard = () => {
-  return (
-  <Container className='d-flex justify-content-center'>
- <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-</Card>
+import {Card,Button, Col} from 'react-bootstrap'
+export const CustomCard = ({movie,func,btnDelete,handleOnDelete}) => {
+  const generateCard=movie=>{
+    return(
 
-    </Container>
+    
+    <Card style={{ width: '18rem' }}>
+      {
+        movie.Poster==='N/A' ? <div class='text-center display-3'>No Image Found</div> :  <Card.Img variant="top" src={movie?.Poster} height="300px"/>
+      }
+    <Card.Body>
+      <Card.Title className='text-center'>{movie?.Title}</Card.Title>
+      <Card.Text>
+        {
+          movie?.imdbRating ? <p>IMDB Rating: <b>{movie.imdbRating}</b></p>:''
+        }
+         {
+          movie?.Director ? <p>Directed By : <b>{movie.Director}</b></p>:'Sorry not director found'
+        }
+         {
+          movie?.Writer ? <p>Written By : <b>{movie.Writer}</b></p>:'Sorry not director found'
+        }
+      </Card.Text>
+      {btnDelete? ( <Button variant="btn w-100 btn-outline-danger" onClick={()=>handleOnDelete(movie.imdbID)}><box-icon name='trash'></box-icon></Button>) : (
+        <div className="d-flex justify-content-between">
+        <Button variant="btn btn-outline" onClick={()=>func("Like",movie)}><box-icon name='like'></box-icon></Button>
+        <Button variant="btn btn-outline" onClick={()=>func("DisLike",movie)}><box-icon name='dislike' ></box-icon></Button>
+        </div>
+      )}
+        
+   
+    </Card.Body>
+  </Card>
+  
+    ) 
+  }
+  return (
+   
+    <Col sm="12" md="6" lg="4" xl="3">
+    {
+      movie?.Poster && movie?.Title && movie?.imdbRating ? generateCard(movie) : ''
+    }
+    </Col>
+
+
  
    
   )

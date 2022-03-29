@@ -1,15 +1,19 @@
 import React,{useState} from 'react'
-import {Container,Form,FormControl,Button,Navbar,Nav} from 'react-bootstrap'
+import {Container,Form,FormControl,Button,Navbar, Row, Col} from 'react-bootstrap'
+import { fetchMovies } from '../../helpers/axiosHelper';
+import { CustomCard } from '../Card/CustomCard';
 import './Header.css'
-export const Header = () => {
+export const Header = ({func}) => {
 const [search,setSearch]=useState("");
+const [movie,setMovie]=useState({});
 const handleOnChange=(e)=>{
   const {value} = e.target;
-  console.log(value);
+  setSearch(value);
 }
-const handleOnSubmit = (e)=>{
+const handleOnSubmit = async (e)=>{
   e.preventDefault();
-  alert("Got the search term")
+  const movie = await fetchMovies(search);
+  setMovie(movie.data)
 }
   return (
     <div >
@@ -29,9 +33,14 @@ const handleOnSubmit = (e)=>{
         />
         <Button variant="outline-success" type='submit'>Search</Button>
       </Form>
-
   </Container>
 </Navbar>
+<Row>
+    <Col className='d-flex justify-content-center'>
+    <CustomCard movie={movie} func={func}/>
+    </Col>
+</Row>
+
     </div>
   )
 }

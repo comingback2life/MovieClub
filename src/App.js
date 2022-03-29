@@ -1,13 +1,48 @@
 import './App.css';
 import { Header } from './components/Header/Header';
-import { CustomCard } from './components/Card/CustomCard';
 import { MovieList } from './components/MovieListing/MovieList';
+import { useState } from 'react';
+import { Alert } from 'react-bootstrap';
 function App() {
+  const [movieList, setMovieList]=useState([]);
+  const [backupList, setBackupList]=useState([]);
+  const  [warningAlert,setWarningAlert]=useState(false);
+  const handleOnAddToList = (cat,movie)=>{
+    const obj = {...movie,cat};
+   !movieList.length && setMovieList([obj])
+   const movieExists = movieList.find(item=>item.imdbID===movie.imdbID);
+    if(movieExists){
+      setWarningAlert(true);
+    }else{
+      setMovieList([...movieList,obj]);
+      setBackupList([...backupList,obj]);
+    }
+  }
+  const handleOnDelete=(imdbID)=>{
+    console.log(imdbID);
+    const newFun = backupList.filter(x=>x.imdbID!==imdbID);
+    setMovieList(newFun);
+    setBackupList(newFun);
+  }
+  const handleOnSelect = (cat)=>{
+    let filterArgs=[]
+    if(cat){
+      filterArgs=backupList.filter(itm=>itm.cat===cat)
+    }else{
+      filterArgs=backupList;
+    }
+    setMovieList(filterArgs);
+  }
   return (
     <div className='wrapper'>
-      <Header/>
-      <CustomCard/>
-      <MovieList/>
+         {
+        warningAlert? (<Alert variant="danger" onClose={() => setWarningAlert(false)} dismissible>
+       <p className='text-center'>Item already added to a list</p>
+      </Alert>):''
+      }
+      <Header func={handleOnAddToList} handleOnDelete={handleOnDelete}/>
+
+      <MovieList func={handleOnAddToList} moviesList={movieList} handleOnDelete={handleOnDelete} handleOnSelect={handleOnSelect}/>
     </div>
   );
 }
