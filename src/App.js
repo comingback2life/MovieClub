@@ -8,7 +8,6 @@ function App() {
   const  [warningAlert,setWarningAlert]=useState(false);
   const [category,setCategory]=useState("")
 
-
   const handleOnAddToList = (cat,movie)=>{
     const obj = {...movie,cat};
    !movieList.length && setMovieList([obj])
