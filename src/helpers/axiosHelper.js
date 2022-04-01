@@ -1,5 +1,5 @@
 import axios from 'axios';
-const apiEndPoint = `http://www.omdbapi.com/?apiKey=f113b653&`
+const apiEndPoint = `https://www.omdbapi.com/?apiKey=f113b653&`
 
 export const fetchMovies=(title)=>{
   try{
